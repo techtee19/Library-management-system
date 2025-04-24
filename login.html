@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
+    <title>Login - Bookly</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="logo">
+            <i class="fas fa-book"></i>
+            <h1>Bookly</h1>
+          </div>
+          <h2>Login</h2>
+        </div>
+
+        <div id="notifications" class="notifications"></div>
+
+        <form id="login-form" class="auth-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Login</button>
+          </div>
+        </form>
+
+        <div class="auth-footer">
+          <p>Don't have an account? <a href="register.html">Register</a></p>
+          <p><a href="index.html">Back to Library</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { loginUser, isLoggedIn } from "./js/auth.js";
+      import { createNotification } from "./js/ui.js";
+
+      // Redirect if already logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        if (isLoggedIn()) {
+          window.location.href = "user-dashboard.html";
+        }
+      });
+
+      // Login form submission
+      const loginForm = document.getElementById("login-form");
+      if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value;
+
+          if (!username || !password) {
+            createNotification("Username and password are required", "error");
+            return;
+          }
+
+          try {
+            const user = loginUser(username, password);
+            createNotification(`Welcome back, ${user.username}!`, "success");
+
+            // Redirect based on role
+            setTimeout(() => {
+              if (user.role === "admin") {
+                window.location.href = "admin-dashboard.html";
+              } else {
+                window.location.href = "user-dashboard.html";
+              }
+            }, 1000);
+          } catch (error) {
+            console.error("Login error:", error);
+            createNotification(error.message, "error");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

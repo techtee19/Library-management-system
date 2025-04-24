@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
+    <title>User Dashboard - Bookly</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/userdashboard.css" />
+    <link rel="stylesheet" href="css/modals.css" />
+    <link rel="stylesheet" href="css/books.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <i class="fas fa-book"></i>
+          <h1>Bookly</h1>
+        </div>
+
+        <div class="user-info" id="user-info-section">
+          <div id="user-avatar" class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="user-details">
+            <span id="sidebar-user-name" class="user-name">Username</span>
+            <span id="sidebar-user-role" class="user-role">Role</span>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <ul>
+            <li>
+              <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="active">
+              <a href="user-dashboard.html"
+                ><i class="fas fa-tachometer-alt"></i> Dashboard</a
+              >
+            </li>
+            <li id="admin-link" class="hidden">
+              <a href="admin-dashboard.html"
+                ><i class="fas fa-user-shield"></i> Admin Panel</a
+              >
+            </li>
+            <li>
+              <a href="#" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <h1>User Dashboard</h1>
+        </header>
+
+        <div class="dashboard-container">
+          <!-- User Profile Section -->
+          <section class="dashboard-section user-profile-section">
+            <div class="section-header">
+              <h2>My Profile</h2>
+              <div class="section-actions">
+                <button id="edit-profile-btn" class="action-btn">
+                  <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <button id="change-password-btn" class="action-btn">
+                  <i class="fas fa-key"></i> Change Password
+                </button>
+              </div>
+            </div>
+            <div class="profile-details">
+              <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="profile-info">
+                <p>
+                  <strong>Username:</strong>
+                  <span id="user-name-profile">Username</span>
+                </p>
+                <p>
+                  <strong>Role:</strong>
+                  <span id="user-role-profile">Role</span>
+                </p>
+                <p>
+                  <strong>Email:</strong>
+                  <span id="user-email">email@example.com</span>
+                </p>
+                <p>
+                  <strong>Member Since:</strong>
+                  <span id="user-since">Date</span>
+                </p>
+                <p>
+                  <strong>Last Activity:</strong>
+                  <span id="last-activity">Date</span>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Statistics Section -->
+          <section class="dashboard-section statistics-section">
+            <div class="section-header">
+              <h2>My Library Statistics</h2>
+            </div>
+            <div class="statistics-grid">
+              <div class="statistic-card">
+                <div class="statistic-icon">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div class="statistic-info">
+                  <h3>Total Books</h3>
+                  <p id="total-books">0</p>
+                </div>
+              </div>
+              <div class="statistic-card">
+                <div class="statistic-icon">
+                  <i class="fas fa-tags"></i>
+                </div>
+                <div class="statistic-info">
+                  <h3>Categories</h3>
+                  <p id="total-categories">0</p>
+                </div>
+              </div>
+              <div class="statistic-card">
+                <div class="statistic-icon">
+                  <i class="fas fa-bookmark"></i>
+                </div>
+                <div class="statistic-info">
+                  <h3>Borrowed Books</h3>
+                  <p id="borrowed-books-count">0</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Borrowed Books Section -->
+          <section class="dashboard-section borrowed-books-section">
+            <div class="section-header">
+              <h2>My Borrowed Books</h2>
+            </div>
+            <div id="borrowed-books" class="borrowed-books-container">
+              <!-- Borrowed books will be loaded here -->
+              <p>You haven't borrowed any books yet.</p>
+            </div>
+          </section>
+
+          <!-- Category Distribution -->
+          <section class="dashboard-section category-section">
+            <div class="section-header">
+              <h2>Reading by Category</h2>
+            </div>
+            <div id="category-chart" class="category-chart">
+              <!-- Category chart will be loaded here -->
+            </div>
+          </section>
+
+          <!-- Recent Books Section -->
+          <section class="dashboard-section recent-books-section">
+            <div class="section-header">
+              <h2>Recently Added Books</h2>
+            </div>
+            <div id="recent-books" class="recent-books-container">
+              <!-- Recent books will be loaded here -->
+            </div>
+          </section>
+
+          <!-- Recommendations Section -->
+          <section class="dashboard-section recommendations-section">
+            <div class="section-header">
+              <h2>Recommended for You</h2>
+              <div class="section-actions">
+                <button id="refresh-recommendations-btn" class="action-btn">
+                  <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+              </div>
+            </div>
+            <div
+              id="dashboard-recommendations"
+              class="dashboard-recommendations-container"
+            >
+              <!-- Recommendations will be loaded here -->
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="profile-edit-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Edit Profile</h2>
+          <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="profile-edit-form">
+            <div class="form-group">
+              <label for="edit-username">Username</label>
+              <input type="text" id="edit-username" disabled />
+              <small>Username cannot be changed</small>
+            </div>
+            <div class="form-group">
+              <label for="edit-email">Email</label>
+              <input type="email" id="edit-email" required />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Save Changes</button>
+              <button type="button" class="secondary-btn close-modal-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="password-change-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Change Password</h2>
+          <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="password-change-form">
+            <div class="form-group">
+              <label for="current-password">Current Password</label>
+              <input type="password" id="current-password" required />
+            </div>
+            <div class="form-group">
+              <label for="new-password">New Password</label>
+              <input type="password" id="new-password" required />
+              <small>Password must be at least 6 characters long</small>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm New Password</label>
+              <input type="password" id="confirm-password" required />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Change Password</button>
+              <button type="button" class="secondary-btn close-modal-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications" class="notifications-container"></div>
+
+    <script type="module" src="js/user-dashboard.js"></script>
+  </body>
+</html>

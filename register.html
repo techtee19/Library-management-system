@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Library Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-book"></i>
+                    <h1>Library Manager</h1>
+                </div>
+                <h2>Create Account</h2>
+            </div>
+            
+            <div id="notifications" class="notifications"></div>
+            
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">Register</button>
+                </div>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a href="login.html">Login</a></p>
+                <p><a href="index.html">Back to Library</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { registerUser, isLoggedIn } from './js/auth.js';
+        import { createNotification } from './js/ui.js';
+        
+        // Redirect if already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            if (isLoggedIn()) {
+                window.location.href = 'user-dashboard.html';
+            }
+        });
+        
+        // Register form submission
+        const registerForm = document.getElementById('register-form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                // Basic validation
+                if (!username || !email || !password || !confirmPassword) {
+                    createNotification('All fields are required', 'error');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    createNotification('Passwords do not match', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    createNotification('Password must be at least 6 characters', 'error');
+                    return;
+                }
+                
+                try {
+                    registerUser(username, email, password);
+                    createNotification('Account created successfully! You can now login.', 'success');
+                    
+                    // Redirect to login page
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } catch (error) {
+                    createNotification(error.message, 'error');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

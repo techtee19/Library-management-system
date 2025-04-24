@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <title>Admin Dashboard - Bookly</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/userdashboard.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-book"></i>
+                <h1>Bookly</h1>
+            </div>
+            <div class="user-info">
+                <div class="avatar admin">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="admin-name">Admin</h3>
+                    <p>Administrator</p>
+                </div>
+            </div>
+            <div class="nav-links">
+                <ul>
+                    <li class="active">
+                        <a href="admin-dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Admin Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user-dashboard.html">
+                            <i class="fas fa-user"></i>
+                            <span>My Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <i class="fas fa-book-open"></i>
+                            <span>Library</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <div id="notifications" class="notifications"></div>
+            
+            <div class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <p>System management and statistics</p>
+            </div>
+            
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Books</h3>
+                        <p id="total-books">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Users</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Categories</h3>
+                        <p id="total-categories">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Admins</h3>
+                        <p id="total-admins">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="overview-tab">System Overview</button>
+                <button class="tab-btn" data-tab="users-tab">User Management</button>
+                <button class="tab-btn" data-tab="library-tab">Library Management</button>
+                <button class="tab-btn" data-tab="settings-tab">System Settings</button>
+            </div>
+            
+            <div id="overview-tab" class="tab-content">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>User Roles Distribution</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="user-roles-chart" class="chart-container">
+                                <!-- Chart will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>Books Added (Last 6 Months)</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="books-added-chart" class="chart-container">
+                                <!-- Chart will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>Top Categories</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="top-categories-chart" class="chart-container">
+                                <!-- Chart will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h2>System Status</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="system-status">
+                                <div class="status-item">
+                                    <span class="status-label">Database:</span>
+                                    <span class="status-value online">Online</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">API Connection:</span>
+                                    <span class="status-value online">Connected</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Last Backup:</span>
+                                    <span class="status-value">Never</span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Storage Usage:</span>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 15%"></div>
+                                    </div>
+                                    <span class="status-value">15%</span>
+                                </div>
+                                <div class="status-actions mt-20">
+                                    <button class="secondary-btn" id="backup-btn">
+                                        <i class="fas fa-download"></i> Backup Data
+                                    </button>
+                                    <button class="secondary-btn" id="check-api-btn">
+                                        <i class="fas fa-sync"></i> Check API
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="users-tab" class="tab-content hidden">
+                <div class="dashboard-card full-width">
+                    <div class="card-header">
+                        <h2>User Management</h2>
+                        <button class="primary-btn" id="add-user-btn">
+                            <i class="fas fa-user-plus"></i> Add User
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="users-table-container">
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Created</th>
+                                        <th>Change Role</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body">
+                                    <!-- Users will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="library-tab" class="tab-content hidden">
+                <div class="dashboard-card full-width">
+                    <div class="card-header">
+                        <h2>Library Management</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="admin-actions">
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="action-info">
+                                    <h3>Manage Books</h3>
+                                    <p>Add, edit, or remove books from the library</p>
+                                </div>
+                                <a href="index.html" class="action-btn">Go to Library</a>
+                            </div>
+                            
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-tags"></i>
+                                </div>
+                                <div class="action-info">
+                                    <h3>Manage Categories</h3>
+                                    <p>Create, edit, or delete book categories</p>
+                                </div>
+                                <a href="index.html#categories-page" class="action-btn">Go to Categories</a>
+                            </div>
+                            
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-cloud-download-alt"></i>
+                                </div>
+                                <div class="action-info">
+                                    <h3>Import Books</h3>
+                                    <p>Import books from external sources</p>
+                                </div>
+                                <button class="action-btn" id="import-books-btn">Import</button>
+                            </div>
+                            
+                            <div class="action-card">
+                                <div class="action-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="action-info">
+                                    <h3>Export Library</h3>
+                                    <p>Export your library data</p>
+                                </div>
+                                <button class="action-btn" id="export-library-btn">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="settings-tab" class="tab-content hidden">
+                <div class="dashboard-card full-width">
+                    <div class="card-header">
+                        <h2>System Settings</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="settings-form">
+                            <div class="settings-section">
+                                <h3>General Settings</h3>
+                                <div class="form-group">
+                                    <label for="library-name">Library Name</label>
+                                    <input type="text" id="library-name" value="Library Manager">
+                                </div>
+                                <div class="form-group">
+                                    <label for="items-per-page">Items Per Page</label>
+                                    <select id="items-per-page">
+                                        <option value="10">10</option>
+                                        <option value="20" selected>20</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-section">
+                                <h3>API Settings</h3>
+                                <div class="form-group">
+                                    <label for="api-key">API Key</label>
+                                    <input type="text" id="api-key" placeholder="Enter API key">
+                                </div>
+                                <div class="form-group">
+                                    <label for="api-endpoint">API Endpoint</label>
+                                    <input type="text" id="api-endpoint" value="https://openlibrary.org">
+                                </div>
+                            </div>
+                            
+                            <div class="settings-section">
+                                <h3>Backup Settings</h3>
+                                <div class="form-group">
+                                    <label for="auto-backup">Auto Backup</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="auto-backup" class="toggle-input">
+                                        <label for="auto-backup" class="toggle-label"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="backup-frequency">Backup Frequency</label>
+                                    <select id="backup-frequency">
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly" selected>Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="primary-btn">Save Settings</button>
+                                <button type="button" class="secondary-btn" id="reset-settings-btn">Reset to Default</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Add User Modal -->
+    <div id="add-user-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New User</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-user-form">
+                    <div class="form-group">
+                        <label for="new-username">Username</label>
+                        <input type="text" id="new-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-email">Email</label>
+                        <input type="email" id="new-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Password</label>
+                        <input type="password" id="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-role">Role</label>
+                        <select id="new-role">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Add User</button>
+                        <button type="button" class="secondary-btn close-modal-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { initAdminDashboard } from './js/admin-dashboard.js';
+        import { checkAdminAuth } from './js/auth.js';
+        
+        // Check if user is admin
+        document.addEventListener('DOMContentLoaded', function() {
+            // This will redirect to login if not logged in or to user dashboard if not admin
+            if (checkAdminAuth()) {
+                // Initialize admin dashboard
+                initAdminDashboard();
+            }
+        });
+    </script>
+</body>
+</html>

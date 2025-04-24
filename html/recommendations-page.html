@@ -1,0 +1,43 @@
+<!-- Recommendations Page -->
+<div id="recommendations-page" class="page hidden">
+    <div class="page-header">
+        <h1>Book Recommendations</h1>
+        <p>Discover new books based on your library and interests</p>
+    </div>
+    
+    <div class="recommendations-tabs">
+        <button class="rec-tab-btn active" data-tab="personalized-recommendations">Personalized</button>
+        <button class="rec-tab-btn" data-tab="category-recommendations">By Category</button>
+    </div>
+    
+    <div class="tab-content" id="personalized-recommendations">
+        <div class="recommendations-header">
+            <h2>Personalized Recommendations</h2>
+            <button id="refresh-recommendations-btn" class="secondary-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
+        
+        <div id="recent-books-container" class="recent-books-container">
+            <!-- Recent books will be displayed here -->
+        </div>
+        
+        <div id="recommendations-container" class="recommendations-container">
+            <!-- Recommendations will be loaded here -->
+        </div>
+    </div>
+    
+    <div class="tab-content hidden" id="category-recommendations">
+        <div class="recommendations-header">
+            <h2>Recommendations by Category</h2>
+            <div class="category-selector">
+                <label for="recommendation-category-select">Select Category:</label>
+                <select id="recommendation-category-select">
+                    <!-- Categories will be loaded here -->
+                </select>
+            </div>
+        </div>
+        
+        <div id="category-recommendations-container" class="recommendations-container">
+            <!-- Category recommendations will be loaded here -->
+        </div>
+    </div>
+</div>

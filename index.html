@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <title>Bookly</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+    <!-- Feature CSS -->
+    <link rel="stylesheet" href="css/books.css" />
+    <link rel="stylesheet" href="css/search.css" />
+    <link rel="stylesheet" href="css/categories.css" />
+    <link rel="stylesheet" href="css/recommendations.css" />
+    <link rel="stylesheet" href="css/modals.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <nav class="sidebar">
+        <div class="logo">
+          <i class="fas fa-book"></i>
+          <h1>Bookly</h1>
+        </div>
+
+        <!-- User info section - will be shown when logged in -->
+        <div id="user-info-section" class="user-info hidden">
+          <div class="avatar" id="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="user-details">
+            <h3 id="sidebar-user-name">User</h3>
+            <p id="sidebar-user-role">Role</p>
+          </div>
+        </div>
+
+        <div class="nav-links">
+          <ul>
+            <li data-page="books-page" class="active">
+              <a href="#" data-page="books-page">
+                <i class="fas fa-book-open"></i>
+                <span>Books</span>
+              </a>
+            </li>
+            <li data-page="search-page">
+              <a href="#" data-page="search-page">
+                <i class="fas fa-search"></i>
+                <span>Search</span>
+              </a>
+            </li>
+            <li data-page="categories-page">
+              <a href="#" data-page="categories-page">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+            <!-- Recommendations nav item will be added dynamically -->
+
+            <!-- Dashboard link - only visible when logged in -->
+            <li id="dashboard-nav-item" class="hidden">
+              <a href="user-dashboard.html">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+
+            <!-- Admin link - only visible for admins -->
+            <li id="admin-nav-item" class="hidden">
+              <a href="admin-dashboard.html">
+                <i class="fas fa-user-shield"></i>
+                <span>Admin Panel</span>
+              </a>
+            </li>
+
+            <!-- Auth buttons -->
+            <li id="login-nav-item">
+              <a href="login.html">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+              </a>
+            </li>
+            <li id="logout-nav-item" class="hidden">
+              <a href="#" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main class="main-content">
+        <div id="loading-indicator" class="loading-indicator hidden">
+          <div class="spinner"></div>
+          <p>Loading...</p>
+        </div>
+
+        <div id="notifications" class="notifications"></div>
+
+        <!-- Page containers - HTML will be loaded dynamically -->
+        <div id="books-page-container"></div>
+        <div id="search-page-container"></div>
+        <div id="categories-page-container"></div>
+        <div id="recommendations-page-container"></div>
+
+        <!-- Modals container - HTML will be loaded dynamically -->
+        <div id="modals-container"></div>
+      </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module">
+      import {
+        isLoggedIn,
+        getCurrentUser,
+        isAdmin,
+        logoutUser,
+      } from "./js/auth.js";
+      import { createNotification } from "./js/ui.js";
+
+      // Update UI based on authentication state
+      function updateAuthUI() {
+        const userInfoSection = document.getElementById("user-info-section");
+        const loginNavItem = document.getElementById("login-nav-item");
+        const logoutNavItem = document.getElementById("logout-nav-item");
+        const dashboardNavItem = document.getElementById("dashboard-nav-item");
+        const adminNavItem = document.getElementById("admin-nav-item");
+        const userAvatar = document.getElementById("user-avatar");
+        const sidebarUserName = document.getElementById("sidebar-user-name");
+        const sidebarUserRole = document.getElementById("sidebar-user-role");
+        const addCategory = document.getElementById("categories-page");
+
+        if (isLoggedIn()) {
+          // User is logged in
+          const currentUser = getCurrentUser();
+
+          // Show user info
+          userInfoSection.classList.remove("hidden");
+          sidebarUserName.textContent = currentUser.username;
+          sidebarUserRole.textContent = currentUser.role;
+
+          // Show logout button and dashboard link
+          loginNavItem.classList.add("hidden");
+          logoutNavItem.classList.remove("hidden");
+          dashboardNavItem.classList.remove("hidden");
+        } else {
+          // User is not logged in
+
+          userInfoSection.classList.add("hidden");
+          loginNavItem.classList.remove("hidden");
+          logoutNavItem.classList.add("hidden");
+          dashboardNavItem.classList.add("hidden");
+          adminNavItem.classList.add("hidden");
+        }
+
+        // If admin, show admin link and update avatar
+
+        if (isAdmin()) {
+          adminNavItem.classList.remove("hidden");
+          userAvatar.classList.add("admin");
+          userAvatar.innerHTML = '<i class="fas fa-user-shield"></i>';
+        } else {
+          adminNavItem.classList.add("hidden");
+          userAvatar.classList.remove("admin");
+          //   addCategory.classList.add("hidden");
+          userAvatar.innerHTML = '<i class="fas fa-user"></i>';
+        }
+      }
+
+      // Add logout functionality
+      const logoutBtn = document.getElementById("logout-btn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          logoutUser();
+          updateAuthUI();
+          createNotification(
+            "You have been logged out successfully",
+            "success"
+          );
+        });
+      }
+
+      // Update UI on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        updateAuthUI();
+      });
+    </script>
+  </body>
+</html>

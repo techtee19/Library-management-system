@@ -1,0 +1,99 @@
+/* admin.css - Styles specific to admin dashboard */
+
+/* Role badges */
+.role-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.role-badge.admin {
+  background-color: #fef2f2;
+  color: #e74c3c;
+}
+
+.role-badge.user {
+  background-color: #e8f4fd;
+  color: #3498db;
+}
+
+/* Users table */
+.users-table-container {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.users-table tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.role-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.delete-user-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.delete-user-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.delete-user-btn:disabled,
+.role-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Horizontal bar chart */
+.bar-chart.horizontal .bar-container {
+  margin-bottom: 10px;
+}
+
+.bar-chart.horizontal .bar-label {
+  width: 60px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .users-table th:nth-child(4),
+  .users-table td:nth-child(4) {
+    display: none;
+  }
+
+  .role-select {
+    width: 100%;
+  }
+}
