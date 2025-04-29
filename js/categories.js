@@ -229,45 +229,45 @@ function initCategoryManagement() {
     });
   }
 
-  // Import categories from Open Library
-  const importCategoriesBtn = document.getElementById("import-categories-btn");
-  if (importCategoriesBtn) {
-    importCategoriesBtn.addEventListener("click", async () => {
-      try {
-        const subjects = await fetchOpenLibraryCategories();
+  // // Import categories from Open Library
+  // const importCategoriesBtn = document.getElementById("import-categories-btn");
+  // if (importCategoriesBtn) {
+  //   importCategoriesBtn.addEventListener("click", async () => {
+  //     try {
+  //       const subjects = await fetchOpenLibraryCategories();
 
-        if (subjects.length === 0) {
-          createNotification("No categories found.", "error");
-          return;
-        }
+  //       if (subjects.length === 0) {
+  //         createNotification("No categories found.", "error");
+  //         return;
+  //       }
 
-        let importCount = 0;
+  //       let importCount = 0;
 
-        subjects.forEach((subject) => {
-          if (addCategory(subject.name)) {
-            importCount++;
-          }
-        });
+  //       subjects.forEach((subject) => {
+  //         if (addCategory(subject.name)) {
+  //           importCount++;
+  //         }
+  //       });
 
-        if (importCount > 0) {
-          loadCategories();
-          updateCategoryFilter();
-          createNotification(
-            `${importCount} categories imported from Open Library.`,
-            "success"
-          );
-        } else {
-          createNotification("No new categories to import.", "info");
-        }
-      } catch (error) {
-        console.error("Error importing categories:", error);
-        createNotification(
-          `Error importing categories: ${error.message}`,
-          "error"
-        );
-      }
-    });
-  }
+  //       if (importCount > 0) {
+  //         loadCategories();
+  //         updateCategoryFilter();
+  //         createNotification(
+  //           `${importCount} categories imported from Open Library.`,
+  //           "success"
+  //         );
+  //       } else {
+  //         createNotification("No new categories to import.", "info");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error importing categories:", error);
+  //       createNotification(
+  //         `Error importing categories: ${error.message}`,
+  //         "error"
+  //       );
+  //     }
+  //   });
+  // }
 }
 
 // Export all functions

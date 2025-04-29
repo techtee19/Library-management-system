@@ -32,9 +32,8 @@ function initNavigation() {
     link.addEventListener("click", function (e) {
       // Don't prevent default for external links (login, dashboard, etc.)
       if (
-        this.getAttribute("href") &&
-        (this.getAttribute("href").endsWith(".html") ||
-          this.getAttribute("href").startsWith("http"))
+        this.getAttribute("href").endsWith(".html") ||
+        this.getAttribute("href").startsWith("http")
       ) {
         return; // Allow normal navigation
       }
