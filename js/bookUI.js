@@ -1,7 +1,7 @@
 export { loadBooks, filterBooksByCategory, showBookDetails, showEditBookForm };
 
 import { displaySimilarBooks } from "./recommendations.js";
-import { borrowBook, returnBook } from "./books.js";
+import { borrowBook, returnBook, loadInitialBooks } from "./books.js";
 import { getBooks, updateCategoryCount } from "./storage.js";
 import { isAdmin, isLoggedIn, getCurrentUser } from "./auth.js";
 import { formatDate, createNotification, showModal, hideModal } from "./ui.js";
