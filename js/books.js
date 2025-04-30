@@ -29,7 +29,6 @@ import {
 } from "./storage.js";
 import { fetchBooksByCategory } from "./api.js";
 import { showModal, hideModal, createNotification, formatDate } from "./ui.js";
-import { updateCategoryCount } from "./storage.js";
 import { displaySimilarBooks } from "./recommendations.js";
 import { isLoggedIn, isAdmin, getCurrentUser } from "./auth.js";
 

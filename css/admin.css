@@ -93,6 +93,30 @@
     display: none;
   }
 
+  .users-table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .user-card {
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .user-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+
+  .role-select,
+  .delete-user-btn {
+    width: 100%;
+    margin-top: 5px;
+  }
+
   .role-select {
     width: 100%;
   }

@@ -3,7 +3,7 @@
 /* Dashboard container */
 .dashboard-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -432,6 +432,32 @@
     grid-template-columns: 1fr;
   }
 
+  .borrowed-books-table {
+    display: none;
+  }
+
+  .borrowed-books-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .borrowed-book-card {
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .borrowed-book-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+  }
+
+  .borrowed-book-card .return-book-btn {
+    padding: 8px 12px;
+  }
+
   .user-profile-section,
   .statistics-section,
   .recommendations-section,
@@ -457,5 +483,27 @@
   .borrowed-books-table th:nth-child(3),
   .borrowed-books-table td:nth-child(3) {
     display: none;
+  }
+
+  .profile-details {
+    gap: 10px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+
+  .profile-info p {
+    font-size: 0.9rem;
+  }
+
+  .dashboard-rec-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .rec-book-cover {
+    height: 160px;
   }
 }
